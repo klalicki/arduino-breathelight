@@ -11,7 +11,8 @@ pinMode(13,OUTPUT);
 }
 
 int curveVal(int value){
-  return value*value/255;
+  return tempVal= value*value/255;
+
 }
 
 
