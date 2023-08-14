@@ -17,7 +17,7 @@ const unsigned int TOP = 0xFFFF; // 16-bit resolution.   244 Hz PWM
   //  const unsigned int TOP = 0x03FF; // 10-bit resolution. 15624 Hz PWM
 
 float degToRad(float degree){
-  return (degree * 71) / 4068;
+  return degree* (M_PI / 180.0);
 }
 
 void PWM16Begin() {
@@ -68,13 +68,14 @@ void setup() {
 //  PWM16A(0);  // Set initial PWM value for Pin 9
 //  PWM16EnableA();  // Turn PWM on for Pin 9
 
-  PWM16B(1024);  // Set initial PWM value for Pin 10
+  PWM16B(0);  // Set initial PWM value for Pin 10
   PWM16EnableB();  // Turn PWM on for Pin 10
 
 }
 
-int curveVal(int value){
-  return (sin(value)+1)/2*255*255;
+int curveVal(float value){
+  float normalizedCos= (-cos(value)+1)/2;
+  return normalizedCos*255*255;
 }
 
 
