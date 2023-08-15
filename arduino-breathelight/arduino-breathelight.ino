@@ -1,7 +1,7 @@
 // rampTime is the length of one cycle in milliseconds
 int rampTime = 20000;
 
-
+// this variable contains the current position in the cycle (in degrees)
 int curPos = 0;
 int delayAmt = rampTime / 360;
 
@@ -15,6 +15,7 @@ const unsigned int TOP = 0xFFFF;  // 16-bit resolution.   244 Hz PWM
 // const unsigned int TOP = 0x0FFF; // 12-bit resolution.  3906 Hz PWM
 // const unsigned int TOP = 0x07FF; // 11-bit resolution.  7812 Hz PWM
 //  const unsigned int TOP = 0x03FF; // 10-bit resolution. 15624 Hz PWM
+
 
 float degToRad(float degree) {
   return degree * (M_PI / 180.0);
@@ -62,6 +63,7 @@ inline void PWM16B(unsigned int PWMValue) {
 void setup() {
   Serial.begin(9600);
   PWM16Begin();
+  
 
   // On the Arduino UNO T1A is Pin 9 and T1B is Pin 10
 
