@@ -76,7 +76,7 @@ void setup() {
 
 int curveVal(float value) {
   double normalizedCos = (-cos(value) + 1) / 2;
-  double powerCos = pow(normalizedCos,5);
+  double powerCos = pow(normalizedCos,10)*.99+.01;
 
   return powerCos * 65535;
 }
