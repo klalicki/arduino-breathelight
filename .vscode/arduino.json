@@ -1,0 +1,5 @@
+{
+    "port": "/dev/tty.usbmodem11101",
+    "board": "arduino:avr:leonardo",
+    "sketch": "arduino-breathelight/arduino-breathelight.ino"
+}
