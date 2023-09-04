@@ -1,7 +1,7 @@
 // rampTime is the length of one cycle in milliseconds
-int rampTime = 13000;
+int rampTime = 14000;
 // cycleDelay is the length of the delay at the end of the dim cycle
-int cycleDelay=750;
+int cycleDelay=1000;
 // this variable contains the current position in the cycle (in degrees)
 float curPos = 0;
 // frameRate is the number of times per second that the LED brightness will change - 
@@ -10,7 +10,8 @@ float frameRate=60;
 float numOfSteps=rampTime/1000*frameRate;
 // this calculates the delay time between steps
 float delayAmt = 1000/frameRate;
-
+// this is the maximum brightness multiplier (range 0 to 1)
+float maxBrightness = 1;
 // Set 'TOP' for PWM resolution.  Assumes 16 MHz clock.
 // un-comment one of the choices
 const unsigned int TOP = 0xFFFF; // 16-bit resolution.   244 Hz PWM
@@ -83,13 +84,16 @@ void setup()
   PWM16EnableB(); // Turn PWM on for Pin 10
 }
 // this function takes a radian value and maps it to a cosine curve for a fade on-off effect.
-int curveVal(float value)
+double curveVal(float value)
 {
   
   double normalizedCos = (-cos(value) + 1) / 2;
-  double powerCos = pow(normalizedCos, 2) * .9999 + .0001;
-
-  return powerCos * 65535;
+  double powerCos = pow(normalizedCos, 3) * .9999 + .0001;
+  // Serial.println(powerCos);
+  double retVal= powerCos*65535;
+  // Serial.println(retVal);
+  // Serial.println("");
+  return retVal;
 }
 
 void loop()
@@ -99,7 +103,7 @@ void loop()
   // Serial.println(curPos);
   // Serial.println(numOfSteps);
   float curRad = degToRad(normalizedDeg);
-
+  // Serial.println(curveVal(curRad));
   PWM16B(curveVal(curRad));
   delay(delayAmt);
   curPos = curPos + 1;
